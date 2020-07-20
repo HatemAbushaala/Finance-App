@@ -1,6 +1,7 @@
 package com.hatemabushaala.financeapp
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_account_action_dialog.*
 import kotlinx.android.synthetic.main.layout_add_account.*
 import kotlinx.android.synthetic.main.layout_add_transaction.*
 import kotlinx.android.synthetic.main.layout_edit_account.*
@@ -142,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
             ItemTouchHelper.SimpleCallback(
                 0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.DOWN or ItemTouchHelper.UP
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
             ) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -474,7 +476,48 @@ class AccountsAdapter(var act: Activity,var items : ArrayList<Accounts>) : Recyc
 
         val item = items[position]
         holder.itemView.setOnClickListener {
-            BottomSheetDialog(act).apply {
+
+
+
+            Dialog(act).apply {
+
+                setContentView(R.layout.layout_account_action_dialog)
+
+                var accountTransactionAmount = etAcountTransactionAmount.text.toString().toDouble()
+
+                increaseAmountBtn.setOnClickListener {
+                    accountTransactionAmount = etAcountTransactionAmount.text.toString().toDouble()
+                    accountTransactionAmount += 10
+                     if (accountTransactionAmount >= item.balance && toggleButton.checkedButtonId == withdrawBtn.id ) accountTransactionAmount-=10
+                    etAcountTransactionAmount.setText((accountTransactionAmount).toString())
+                }
+
+                decreaseAmountBtn.setOnClickListener {
+                    accountTransactionAmount = etAcountTransactionAmount.text.toString().toDouble()
+                    if (accountTransactionAmount <= 10 )return@setOnClickListener
+                    accountTransactionAmount -= 10
+                    etAcountTransactionAmount.setText((accountTransactionAmount).toString())
+                }
+
+                submitAccountTransaction.setOnClickListener {
+
+
+
+                    val isWithDraw = toggleButton.checkedButtonId == withdrawBtn.id
+                    var newTransactions = Transactions(null,accountTransactionAmount,item.uid!!,isWithDraw,
+                    if (isWithDraw)"withdraw" else "deposit"
+                        )
+
+                    // todo insert transaction
+                    // todo update account depending on type of transaction
+                    // todo update layout ( don't forget transactions adapter  )
+
+                    Toast.makeText(act, "account :${item.uid} amount $accountTransactionAmount is withdraw $isWithDraw", Toast.LENGTH_SHORT).show();
+                    dismiss()
+                }
+                show()
+            }
+         /*   BottomSheetDialog(act).apply {
 
                 setContentView(R.layout.layout_edit_account)
 
@@ -506,7 +549,7 @@ class AccountsAdapter(var act: Activity,var items : ArrayList<Accounts>) : Recyc
                     }
 
                 }
-/*
+*//*
                 editCurrencySpinner.adapter = ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item,Common.currencies)
                 editCurrencySpinner.setPadding(4,4,4,4)
 
@@ -518,7 +561,7 @@ class AccountsAdapter(var act: Activity,var items : ArrayList<Accounts>) : Recyc
                         editCurrencySpinner.setSelection(i)
                         break
                     }
-                }*/
+                }*//*
 
 
                 currencyBtnRef = editSelectCurrencyBtn
@@ -567,7 +610,7 @@ class AccountsAdapter(var act: Activity,var items : ArrayList<Accounts>) : Recyc
                     }
                 }
                 show()
-            }
+            }*/
         }
         holder.bind(position,item)
     }
