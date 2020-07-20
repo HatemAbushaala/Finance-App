@@ -1,10 +1,23 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">#10121C</item>
+        <item name="colorPrimary">#55C892</item>
+        <item name="colorPrimaryDark">#070A1B</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="shapeAppearanceLargeComponent">@style/roundedBottomSheet</item>
+        <item name="colorSurface">#000000</item>
+
     </style>
+
+    <style name="roundedBottomSheet" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+    </style>
+
 
 </resources>

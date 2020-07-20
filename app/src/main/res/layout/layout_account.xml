@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="190dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="10dp"
+    android:layout_marginEnd="8dp">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/accountCard"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+      >
+
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/accountNameTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/accountBalanceTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="30JD" />
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
